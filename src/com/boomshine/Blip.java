@@ -19,10 +19,11 @@ public class Blip
 
     public int width;
     public int height;
-    public int x;
-    public int y;
+    public double x;
+    public double y;
     public int radius = 8;
     public int color = 0xffffffff;
+
     public double rotation = 0; 
     public double velocity_x;
     public double velocity_y;
@@ -47,22 +48,32 @@ public class Blip
         velocity_y = 2 * Math.cos(rotation);
 
         randomColor();
-
-        Log.d(TAG, String.format("New Blip - x:%d y:%d color:%h rotation:%f",
-                                 x, y, color, rotation));
     }
 
     public void step()
     {
-        if ((x - radius < 0) || (x + radius > width)) {
-            velocity_x *= -1;
-        }
-        if ((y - radius < 0) || (y + radius > height)) {
-            velocity_y *= -1;
-        }
+        Log.d(TAG, String.format("Blip's cur position: %f,%f\t" +
+                                 "Blip's cur velocity: %f,%f", x, y, velocity_x, velocity_y));
 
         x += velocity_x;
         y += velocity_y;
+
+        if (x < 0) {
+            Log.d(TAG, "hit left edge");
+            velocity_x *= -1;
+        }
+        if (x > width) {
+            Log.d(TAG, "hit right edge");
+            velocity_x *= -1;
+        }
+        if (y < 0) {
+            Log.d(TAG, "hit top edge");
+            velocity_y *= -1;
+        }
+        if (y > height) {
+            Log.d(TAG, "hit bottom edge");
+            velocity_y *= -1;
+        }
     }
 
     public void randomColor()
