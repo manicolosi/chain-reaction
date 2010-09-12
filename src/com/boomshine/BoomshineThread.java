@@ -15,30 +15,30 @@ public class BoomshineThread extends Thread
 
     private SurfaceHolder mSurfaceHolder;
     private Paint background;
-    private Paint foreground;
+
+    private int mCanvasWidth;
+    private int mCanvasHeight;
 
     private boolean mRun = false;
     private long mLastTime;
 
     public BoomshineThread(SurfaceHolder surfaceHolder)
     {
-        Log.d(TAG, "BoomshineThread()");
-
         background = new Paint();
         background.setColor(0xff000000);
 
-        foreground = new Paint();
-        foreground.setColor(0xffeeeeec);
-        foreground.setAntiAlias(true);
-
         mSurfaceHolder = surfaceHolder;
+    }
+
+    public void setSurfaceSize(int width, int height)
+    {
+        mCanvasWidth = width;
+        mCanvasHeight = height;
     }
 
     public void doStart()
     {
         synchronized (mSurfaceHolder) {
-            Log.d(TAG, "start()");
-
             createBlips();
 
             mLastTime = System.currentTimeMillis() + 100;
@@ -48,17 +48,11 @@ public class BoomshineThread extends Thread
 
     public void createBlips()
     {
-        Log.d(TAG, "createBlips()");
-
         int num_blips = 10;
         mBlips = new Blip[num_blips];
 
-        // FIXME!
-        int w = 300;
-        int h = 400;
-
         for (int i = 0; i < mBlips.length; i++) {
-            mBlips[i] = new Blip(w, h);
+            mBlips[i] = new Blip(mCanvasWidth, mCanvasHeight);
         }
     }
 
@@ -105,6 +99,11 @@ public class BoomshineThread extends Thread
 
         for (int i = 0; i < mBlips.length; i++) {
             if (mBlips[i] == null) continue;
+
+            // These paint objects should obviously be cached.
+            Paint foreground = new Paint();
+            foreground.setColor(mBlips[i].color);
+            foreground.setAntiAlias(true);
 
             Path path = new Path();
             path.addCircle((int)mBlips[i].x, (int)mBlips[i].y, mBlips[i].radius, Direction.CW);

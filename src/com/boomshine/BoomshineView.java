@@ -29,16 +29,15 @@ public class BoomshineView extends SurfaceView implements SurfaceHolder.Callback
     public void surfaceCreated(SurfaceHolder holder)
     {
         Log.d(TAG, "surfaceCreated()");
-        //thread.setRunning(true);
-        thread.doStart();
-        thread.start();
     }
 
     public void surfaceChanged(SurfaceHolder holder, int format,
             int width, int height)
     {
         Log.d(TAG, "surfaceChanged()");
-        //thread.setSurfaceSize(width, height)
+        thread.setSurfaceSize(width, height);
+        thread.doStart();
+        thread.start();
     }
 
     public void surfaceDestroyed(SurfaceHolder holder) {
