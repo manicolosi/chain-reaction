@@ -8,13 +8,13 @@ public class Blip
     private static final String TAG = "Boomshine";
 
     private static final int[] colors = new int[] {
-        0xa0edd400,
-        0xa073d216,
-        0xa0c17d11,
-        0xa0f57900,
-        0xa075507b,
-        0xa0cc0000,
-        0xa03465a4,
+        0xd0edd400,
+        0xd073d216,
+        0xd0c17d11,
+        0xd0f57900,
+        0xd075507b,
+        0xd0cc0000,
+        0xd03465a4,
     };
 
     public int width;
@@ -52,26 +52,16 @@ public class Blip
 
     public void step()
     {
-        Log.d(TAG, String.format("Blip's cur position: %f,%f\t" +
-                                 "Blip's cur velocity: %f,%f", x, y, velocity_x, velocity_y));
+        //Log.d(TAG, String.format("Blip's cur position: %f,%f\t" +
+        //                         "Blip's cur velocity: %f,%f", x, y, velocity_x, velocity_y));
 
         x += velocity_x;
         y += velocity_y;
 
-        if (x < 0) {
-            Log.d(TAG, "hit left edge");
+        if (x - radius < 0 || x + radius > width) {
             velocity_x *= -1;
         }
-        if (x > width) {
-            Log.d(TAG, "hit right edge");
-            velocity_x *= -1;
-        }
-        if (y < 0) {
-            Log.d(TAG, "hit top edge");
-            velocity_y *= -1;
-        }
-        if (y > height) {
-            Log.d(TAG, "hit bottom edge");
+        if (y - radius < 0 || y + radius > height) {
             velocity_y *= -1;
         }
     }
