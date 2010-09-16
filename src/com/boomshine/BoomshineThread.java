@@ -47,6 +47,7 @@ public class BoomshineThread extends Thread
     @Override
     public void run()
     {
+        Log.d(TAG, "run()");
         while(mRun) {
             long now = System.currentTimeMillis();
 
@@ -75,6 +76,8 @@ public class BoomshineThread extends Thread
                 mFrameCount = 0;
             }
         }
+
+        Log.d(TAG, "run(): done");
     }
 
     public void setSurfaceSize(int width, int height)
