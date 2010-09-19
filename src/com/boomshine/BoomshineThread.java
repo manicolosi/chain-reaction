@@ -21,6 +21,7 @@ public class BoomshineThread extends Thread
     private int mCanvasHeight;
 
     private boolean mRun = false;
+    private boolean mTouched = false;
 
     private long mLastTime;
     private int mFrameCount;
@@ -88,10 +89,11 @@ public class BoomshineThread extends Thread
 
     public void createBlips()
     {
+        // Switch to some type of list instead of array
         int num_blips = 50;
-        mBlips = new Blip[num_blips];
+        mBlips = new Blip[num_blips + 1];
 
-        for (int i = 0; i < mBlips.length; i++) {
+        for (int i = 0; i < mBlips.length - 1; i++) {
             mBlips[i] = new Blip(mCanvasWidth, mCanvasHeight);
         }
     }
@@ -105,7 +107,7 @@ public class BoomshineThread extends Thread
     {
         for (int i = 0; i < mBlips.length; i++) {
             if (mBlips[i] == null) continue; // Remove soon!
-            mBlips[i].step();
+            mBlips[i].step(mBlips);
         }
 
     }
@@ -120,14 +122,29 @@ public class BoomshineThread extends Thread
             if (mBlips[i] == null) continue;
 
             // These paint objects should obviously be cached.
-            Paint foreground = new Paint();
+            Paint foreground = new Paint(Paint.ANTI_ALIAS_FLAG);
             foreground.setColor(mBlips[i].color);
-            foreground.setAntiAlias(true);
 
             Path path = new Path();
             path.addCircle((int)mBlips[i].x, (int)mBlips[i].y, mBlips[i].radius, Direction.CW);
 
             canvas.drawPath(path, foreground);
+        }
+    }
+
+    public void onTouch(int x, int y)
+    {
+        synchronized (mSurfaceHolder) {
+            //if (mTouched) return;
+
+            Blip blip = new Blip();
+            blip.x = x;
+            blip.y = y;
+
+            blip.explode();
+            mBlips[mBlips.length-1] = blip;
+
+            mTouched = true;
         }
     }
 }

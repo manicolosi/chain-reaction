@@ -58,4 +58,21 @@ public class BoomshineView extends SurfaceView implements SurfaceHolder.Callback
 
         Log.d(TAG, "surfaceDestroyed(): " + thread.getState());
     }
+
+    public boolean onTouchEvent(MotionEvent event)
+    {
+        Log.d(TAG, "onTouchEvent(): " + event.getAction());
+        Log.d(TAG, "onTouchEvent(): TESTING " + MotionEvent.ACTION_UP);
+
+        if (event.getAction() == MotionEvent.ACTION_UP) {
+            int x = (int) event.getX();
+            int y = (int) event.getY();
+
+            Log.d(TAG, "onTouchEvent(): " + x + "," + y);
+
+            thread.onTouch(x, y);
+        }
+
+        return true;
+    }
 }
