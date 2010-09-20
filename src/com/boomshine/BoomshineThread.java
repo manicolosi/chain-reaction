@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Path.Direction;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
 public class BoomshineThread extends Thread
@@ -22,6 +23,8 @@ public class BoomshineThread extends Thread
 
     private boolean mRun = false;
     private boolean mTouched = false;
+    private int mTouchX;
+    private int mTouchY;
 
     private long mLastTime;
     private int mFrameCount;
@@ -130,21 +133,46 @@ public class BoomshineThread extends Thread
 
             canvas.drawPath(path, foreground);
         }
+
+        if (mTouched) {
+            Log.d(TAG, "Drawing circle at " + mTouchX + "," + mTouchY);
+
+            Paint foreground = new Paint(Paint.ANTI_ALIAS_FLAG);
+            foreground.setColor(0x80729fcf);
+
+            Paint stroke = new Paint(Paint.ANTI_ALIAS_FLAG);
+            stroke.setColor(0x80204a87);
+            stroke.setStyle(Paint.Style.STROKE);
+            Log.d(TAG, "default stroke width: " + stroke.getStrokeWidth());
+            stroke.setStrokeWidth(2);
+
+            Path path = new Path();
+            path.addCircle(mTouchX, mTouchY, 60, Direction.CW);
+
+            canvas.drawPath(path, foreground);
+            canvas.drawPath(path, stroke);
+        }
     }
 
-    public void onTouch(int x, int y)
+    public void onTouch(int action, int x, int y)
     {
         synchronized (mSurfaceHolder) {
-            //if (mTouched) return;
 
-            Blip blip = new Blip();
-            blip.x = x;
-            blip.y = y;
+            if (action == MotionEvent.ACTION_UP) {
+                Log.d(TAG, "ACTION_UP");
+                Blip blip = new Blip();
+                blip.x = x;
+                blip.y = y;
 
-            blip.explode();
-            mBlips[mBlips.length-1] = blip;
+                blip.explode();
+                mBlips[mBlips.length-1] = blip;
 
-            mTouched = true;
+                mTouched = false; // Work-around to not show the touch circle
+            } else if (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_MOVE) {
+                mTouched = true;
+                mTouchX = x;
+                mTouchY = y;
+            }
         }
     }
 }
