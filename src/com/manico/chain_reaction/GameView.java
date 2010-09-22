@@ -1,4 +1,4 @@
-package com.boomshine;
+package com.manico.chain_reaction;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,17 +7,17 @@ import android.view.SurfaceView;
 import android.view.MotionEvent;
 import android.view.View;
 
-public class BoomshineView extends SurfaceView implements SurfaceHolder.Callback
+public class GameView extends SurfaceView implements SurfaceHolder.Callback
 {
-    private static final String TAG = "BoomshineView";
+    private static final String TAG = "GameView";
 
-    private BoomshineThread thread;
+    private GameThread thread;
 
-    public BoomshineView(Context context)
+    public GameView(Context context)
     {
         super(context);
 
-        Log.d(TAG, "BoomshineView()");
+        Log.d(TAG, "GameView()");
 
         SurfaceHolder holder = getHolder();
         holder.addCallback(this);
@@ -27,7 +27,7 @@ public class BoomshineView extends SurfaceView implements SurfaceHolder.Callback
 
     public void surfaceCreated(SurfaceHolder holder)
     {
-        thread = new BoomshineThread(holder);
+        thread = new GameThread(holder);
         Log.d(TAG, "surfaceCreated()");
     }
 

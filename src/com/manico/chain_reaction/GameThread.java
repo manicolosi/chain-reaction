@@ -1,4 +1,4 @@
-package com.boomshine;
+package com.manico.chain_reaction;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -9,9 +9,9 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
-public class BoomshineThread extends Thread
+public class GameThread extends Thread
 {
-    private static final String TAG = "BoomshineThread";
+    private static final String TAG = "GameThread";
 
     private Blip[] mBlips;
 
@@ -29,7 +29,7 @@ public class BoomshineThread extends Thread
     private long mLastTime;
     private int mFrameCount;
 
-    public BoomshineThread(SurfaceHolder surfaceHolder)
+    public GameThread(SurfaceHolder surfaceHolder)
     {
         background = new Paint();
         background.setColor(0xffeeeeec);

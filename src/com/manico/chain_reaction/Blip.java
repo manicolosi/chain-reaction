@@ -1,11 +1,11 @@
-package com.boomshine;
+package com.manico.chain_reaction;
 
 import android.util.Log;
 import java.util.Random;
 
 public class Blip
 {
-    private static final String TAG = "Boomshine";
+    private static final String TAG = "Blip";
 
     private static final int[] colors = new int[] {
         0xd0edd400,
@@ -24,7 +24,7 @@ public class Blip
     public int radius = 10;
     public int color = 0xd02e3436;
 
-    public double rotation = 0; 
+    public double rotation = 0;
     public double velocity_x;
     public double velocity_y;
 

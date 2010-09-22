@@ -1,12 +1,12 @@
-package com.boomshine;
+package com.manico.chain_reaction;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 
-public class BoomshineActivity extends Activity
+public class GameActivity extends Activity
 {
-    private static final String TAG = "BoomshineActivity";
+    private static final String TAG = "GameActivity";
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -15,6 +15,6 @@ public class BoomshineActivity extends Activity
 
         Log.d(TAG, "onCreate()");
 
-        setContentView(new BoomshineView(this));
+        setContentView(new GameView(this));
     }
 }
