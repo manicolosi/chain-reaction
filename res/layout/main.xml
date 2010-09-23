@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:padding="30dip">
+    <LinearLayout android:orientation="vertical"
+                  android:layout_gravity="center"
+                  android:layout_height="wrap_content"
+                  android:layout_width="fill_parent">
+        <TextView
+            android:text="@string/app_name"
+            android:textSize="32sp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dip" />
+        <Button
+            android:id="@+id/play_button"
+            android:text="@string/play_label"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/levels_button"
+            android:text="@string/levels_label"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/achievements_button"
+            android:text="@string/achievements_label"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/share_button"
+            android:text="@string/share_label"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>
